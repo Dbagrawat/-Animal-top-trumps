@@ -4,11 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
-import DialogActions from "@material-ui/core/DialogActions";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,40 +36,16 @@ const AddAnimal = (props) => {
     };
 
     const [animal, setAnimal] = useState(initAnimal);
-    const [type, setType] = useState("");
-    const [diet, setDiet] = useState("");
-    const [description, setdescription] = useState("");
-    const [status, setStatus] = useState("");
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
         setAnimal({ ...animal, [name]: value });
     };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (animal.name) {
-            handleChange(e, props.addAnimal(animal));
+            handleInputChange(e, props.addAnimal(animal));
         }
-    };
-    const handleTypeChange = (e) => {
-        setType(e.target.value);
-        const { name, value } = e.target;
-        setAnimal({ ...animal, [name]: value });
-    };
-    const handleDietChange = (e) => {
-        setDiet(e.target.value);
-        const { name, value } = e.target;
-        setAnimal({ ...animal, [name]: value });
-    };
-    const handleStatusChange = (e) => {
-        setStatus(e.target.value);
-        const { name, value } = e.target;
-        setAnimal({ ...animal, [name]: value });
-    };
-    const handleDescChange = (e) => {
-        setdescription(e.target.value);
-        const { name, value } = e.target;
-        setAnimal({ ...animal, [name]: value });
     };
 
     return (
@@ -80,16 +54,16 @@ const AddAnimal = (props) => {
                 id="standard-basic"
                 label="Name"
                 name="name"
-                onChange={handleChange}
+                onChange={handleInputChange}
             />
             <FormControl className={classes.formControl}>
                 <InputLabel id="demo-simple-select-label">Type</InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={type}
+                    value={animal.type}
                     name="type"
-                    onChange={handleTypeChange}
+                    onChange={handleInputChange}
                 >
                     <MenuItem value="Mammal" name="Mammal">
                         Mammal
@@ -104,9 +78,9 @@ const AddAnimal = (props) => {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={diet}
+                    value={animal.diet}
                     name="diet"
-                    onChange={handleDietChange}
+                    onChange={handleInputChange}
                 >
                     <MenuItem value="Carnivore">Carnivore</MenuItem>
                     <MenuItem value="herbivore">Herbivore</MenuItem>
@@ -117,9 +91,9 @@ const AddAnimal = (props) => {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={status}
+                    value={animal.isExtinct}
                     name="isExtinct"
-                    onChange={handleStatusChange}
+                    onChange={handleInputChange}
                 >
                     <MenuItem value="false">extinc</MenuItem>
                     <MenuItem value="true">Not extinc</MenuItem>
@@ -130,7 +104,7 @@ const AddAnimal = (props) => {
                 rowsMin={10}
                 placeholder="description"
                 name="description"
-                onChange={handleDescChange}
+                onChange={handleInputChange}
                 style={{
                     width: "90%",
                     marginBottom: "20px",
