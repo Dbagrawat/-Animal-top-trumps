@@ -58,7 +58,7 @@ const AnimalCard = (props) => {
                             <Button
                                 variant="contained"
                                 color="primary"
-                                onClick={props.handleClickOpen}
+                                onClick={() => props.editThisAnimal(animal)}
                             >
                                 Edit
                             </Button>
